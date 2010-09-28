@@ -126,13 +126,7 @@ public class GUI {
 		});
 		changeSettingsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog sets = new JDialog(parent, SettingsStore.getInstance().getSettings().getSchema() + ": Settings.");
-				sets.setContentPane(new Settings(sets).$$$getRootComponent$$$());
-				sets.setModal(true);
-				sets.setSize(800, 400);
-				sets.setLocationRelativeTo(null);
-				sets.setVisible(true);
-				sets.dispose();
+				Settings.display(parent, SettingsStore.getInstance().getSettings().getSchema() + ": Settings.");
 			}
 		});
 

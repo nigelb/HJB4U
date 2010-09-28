@@ -933,4 +933,15 @@ public class Settings {
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
+	public static void display(JFrame parent, String Title)
+	{
+				JDialog sets = new JDialog(parent, SettingsStore.getInstance().getSettings().getSchema() + ": Settings.");
+				sets.setContentPane(new Settings(sets).$$$getRootComponent$$$());
+				sets.setModal(true);
+				sets.setSize(800, 400);
+				sets.setLocationRelativeTo(null);
+				sets.setVisible(true);
+				sets.dispose();
+	}
 }

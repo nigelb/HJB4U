@@ -25,6 +25,12 @@
     <artifactId>hjb4u</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
+    <licenses>
+       <license>
+          <name>GNU General Public License (GPL) Version 2</name>
+          <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+       </license>
+    </licenses>    
     <name>HyperJAXB 4 Users</name>
     <properties>
         <hjb4uresources>src/main/resources</hjb4uresources>
@@ -252,7 +258,7 @@
                     <classpathScope>compile</classpathScope>
                     <mainClass>${artifactId}.LaunchSettingsCreator</mainClass>
                     <arguments>
-                        <argument>${hjb4u_conf}/settings.xml/${generated.sources.directory}</argument>
+                        <argument>${hjb4u_conf}</argument>
                     </arguments>
                 </configuration>
             </plugin>            

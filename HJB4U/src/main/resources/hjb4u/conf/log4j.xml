@@ -18,7 +18,7 @@
   ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
   -->
 
-<!--<!DOCTYPE log4j:configuration SYSTEM "./conf/log4j.dtd">-->
+<!--<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">-->
 
 <log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
 

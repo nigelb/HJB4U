@@ -19,6 +19,14 @@
 
 package hjb4u;
 
+import hjb4u.config.DBList;
+
+import javax.swing.*;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.FileNotFoundException;
+
 /**
  * <code>LaunchSettingsCreator</code>
  * Date: 19/09/2010
@@ -27,7 +35,25 @@ package hjb4u;
  * @author Nigel Bajema
  */
 public class LaunchSettingsCreator {
+
     public static void main(String[] args) {
-        System.out.println(args[1]);
-    }
+		try{
+        new LaunchSettingsCreator().run(args);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void run(String[] args) throws JAXBException, FileNotFoundException {
+		String pgkPath = Launch.class.getPackage().getName().replace('.', '/');
+		String conf_path = pgkPath + "/conf";
+		ClassLoader cl = MyRoundtripTest.class.getClassLoader();
+		SettingsStore.instanciate(args[0], "settings.xml");
+		Unmarshaller umas = JAXBContext.newInstance(DBList.class).createUnmarshaller();
+		DBList templates = (DBList) umas.unmarshal(cl.getResourceAsStream(conf_path + "/databases.xml"));
+		SettingsStore store = SettingsStore.getInstance();
+		store.setDatabaseTemplates(templates);
+		Settings.display(null, "Configuration : Settings.");
+		SettingsStore.getInstance().save();
+	}
 }

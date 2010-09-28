@@ -1,3 +1,3 @@
 cd ..
-mvn.bat -Dmaven.test.skip=true clean package
+mvn.bat -Dmaven.test.skip=true clean compile exec:java package
 pause
