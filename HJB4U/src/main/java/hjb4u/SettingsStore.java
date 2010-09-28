@@ -58,7 +58,7 @@ public class SettingsStore {
     private Marshaller mar = context.createMarshaller();
     private Logger logger = Logger.getLogger(SettingsStore.class);
     private DBList templates;
-    private final String episode = "META-INF/sun-jaxb.episode";
+    private String episode = "META-INF/sun-jaxb.episode";
 
     public static void instanciate(String conf_dir, String settings) throws JAXBException {
         instance = new SettingsStore(conf_dir, new File(conf_dir + File.separator + settings));
@@ -191,4 +191,12 @@ public class SettingsStore {
     public DBList getTemplates() {
         return templates;
     }
+
+	public String getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(String episode) {
+		this.episode = episode;
+	}
 }
