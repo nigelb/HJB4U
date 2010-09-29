@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Date: Jul 9, 2009
  * Time: 11:51:56 AM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class AnnotationPair implements Comparable{
     private Table tb;

@@ -45,7 +45,7 @@ import java.util.Set;
  * Date: 14/06/2010
  * Time: 9:40:58 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class ClassFinder {
     private static final Logger logger = Logger.getLogger(ClassFinder.class.getName());

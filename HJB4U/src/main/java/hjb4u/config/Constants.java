@@ -24,7 +24,7 @@ package hjb4u.config;
  * Date: Aug 20, 2009
  * Time: 8:47:34 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public interface Constants {
     public static final String LF5AppenderName = "__LF5HJB4UAppender__";

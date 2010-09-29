@@ -28,7 +28,7 @@ import javax.swing.event.ListDataListener;
  * Date: 08/07/2009
  * Time: 2:20:02 AM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class ComboListModelLW extends AbstractListModel implements ComboBoxModel{
     private ListModel model;

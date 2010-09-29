@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlEnumValue;
  * Date: Aug 20, 2009
  * Time: 6:33:10 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 
 @XmlEnum

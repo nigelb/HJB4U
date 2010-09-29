@@ -29,7 +29,7 @@ import java.sql.Types;
  * Date: Jan 7, 2010
  * Time: 1:30:10 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class NoBitsMySQL5InnoDBDialect extends MySQL5InnoDBDialect {
     public NoBitsMySQL5InnoDBDialect() {

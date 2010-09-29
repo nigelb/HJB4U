@@ -44,7 +44,7 @@ import java.util.List;
  * Date: Jul 9, 2009
  * Time: 11:25:45 AM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class Mapping {
     private JPanel panel1;

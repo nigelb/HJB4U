@@ -24,7 +24,7 @@ package hjb4u;
  * Date: 15/06/2010
  * Time: 7:36:30 AM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class Pair<ITEM1, ITEM2> {
     private ITEM1 item1;

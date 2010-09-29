@@ -28,7 +28,7 @@ import java.util.List;
  * Date: 07/07/2009
  * Time: 5:08:52 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 @XmlRootElement(name = "Databases")
 public class DBList {

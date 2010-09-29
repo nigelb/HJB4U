@@ -64,7 +64,7 @@ import java.util.Properties;
  * Date: May 20, 2009
  * Time: 10:40:27 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class Main {
 
@@ -74,19 +74,11 @@ public class Main {
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
     private EntityManagerFactory fac;
-//    private EntityManager emanager;
 
     private HJB4UConfiguration settings = SettingsStore.getInstance().getSettings();
     private Logger logger = Logger.getLogger(Main.class.getName());
 
     public Main() throws SAXException, IOException, JAXBException {
-
-
-//        int count = Setup.getProperty_int(this, "namespace.rename.count", 0);
-//        for (int i = 1; i <= count; i++) {
-//            rename_ns_map.put(getProperty(this, "namespace.rename.ns_" + i), getProperty(this, "namespace.rename.ns_id_" + i));
-//            System.out.println(getProperty(this, "namespace.rename.ns_" + i) + "::" + getProperty(this, "namespace.rename.ns_id_" + i));
-//        }
 
 
         jaxbContext = newInstance(new MyRoundtripTest().getContextPath());
@@ -105,8 +97,6 @@ public class Main {
         NamespacePrefixMapper prefix = SettingsStore.getInstance().getNamespaceMapper();
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", prefix);
         vmarshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", prefix);
-
-//        marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "UTF-8");
 
         unmarshaller.setSchema(schema);
 
@@ -287,7 +277,6 @@ public class Main {
             });
             validator.validate(new DOMSource(document));
 
-//        unmarshaller.unmarshal(new ByteArrayInputStream(data.getBytes()));
         } catch (IOException e) {
             logger.error(e, e);
         } catch (SAXException e) {

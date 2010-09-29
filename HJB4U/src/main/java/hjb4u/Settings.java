@@ -51,7 +51,7 @@ import java.util.UUID;
  * Date: Jun 2, 2009
  * Time: 8:45:30 AM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class Settings {
     private JPanel panel1;

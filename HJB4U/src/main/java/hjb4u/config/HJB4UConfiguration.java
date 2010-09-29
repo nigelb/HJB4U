@@ -30,7 +30,7 @@ import java.util.List;
  * Date: 07/07/2009
  * Time: 4:32:47 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 @XmlRootElement(name = "Configuration")
 public class HJB4UConfiguration {

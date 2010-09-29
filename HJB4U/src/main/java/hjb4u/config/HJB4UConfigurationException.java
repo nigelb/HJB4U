@@ -24,7 +24,7 @@ package hjb4u.config;
  * Date: Aug 23, 2009
  * Time: 1:04:11 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class HJB4UConfigurationException extends Exception {
     public HJB4UConfigurationException() {

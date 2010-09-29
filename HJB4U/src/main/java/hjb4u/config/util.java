@@ -32,7 +32,7 @@ import java.util.Enumeration;
  * Date: 07/07/2009
  * Time: 5:09:42 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class util {
     public final static void first() throws JAXBException {

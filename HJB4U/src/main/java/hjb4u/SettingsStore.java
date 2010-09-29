@@ -46,7 +46,7 @@ import java.util.List;
  * Date: 07/07/2009
  * Time: 6:15:36 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class SettingsStore {
     private HJB4UConfiguration settings;

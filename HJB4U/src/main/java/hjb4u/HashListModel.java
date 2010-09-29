@@ -29,7 +29,7 @@ import java.util.Hashtable;
  * Date: 07/07/2009
  * Time: 10:37:24 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class HashListModel<T> extends AbstractListModel {
     private Hashtable<String, T> model = new Hashtable<String, T>();

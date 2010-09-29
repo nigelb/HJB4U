@@ -28,7 +28,7 @@ import java.util.UUID;
  * Date: 07/07/2009
  * Time: 4:36:04 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 @XmlRootElement(name = "Database")
 public class DBConf {

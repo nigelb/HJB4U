@@ -47,7 +47,7 @@ import java.util.Set;
  * Date: 16/06/2010
  * Time: 6:39:48 AM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class DelegateDBDialect extends Dialect {
     private static final Logger logger = Logger.getLogger(DelegateDBDialect.class.getName());

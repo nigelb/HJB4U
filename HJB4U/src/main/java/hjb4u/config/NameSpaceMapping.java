@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Date: 07/07/2009
  * Time: 5:03:06 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 @XmlRootElement(name = "NameSpace")
 public class NameSpaceMapping {

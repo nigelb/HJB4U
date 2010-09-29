@@ -40,7 +40,7 @@ import java.io.*;
  * Date: Jun 2, 2009
  * Time: 8:29:25 AM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class GUI {
 	private JButton createDatabaseButton;

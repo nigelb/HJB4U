@@ -30,7 +30,7 @@ import java.awt.*;
  * Date: Aug 20, 2009
  * Time: 8:34:06 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class LogWindow {
     private JPanel panel1;

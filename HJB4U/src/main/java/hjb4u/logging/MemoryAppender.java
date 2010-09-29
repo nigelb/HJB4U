@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * Date: Aug 20, 2009
  * Time: 7:50:10 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class MemoryAppender extends AppenderSkeleton {
     private int size = 5000;

@@ -32,7 +32,7 @@ import java.io.FileNotFoundException;
  * Date: 19/09/2010
  * Time: 12:48:27 PM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class LaunchSettingsCreator {
 

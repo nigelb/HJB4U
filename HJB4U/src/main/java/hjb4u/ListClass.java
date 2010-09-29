@@ -24,7 +24,7 @@ package hjb4u;
  * Date: 08/07/2009
  * Time: 4:15:17 AM
  *
- * @author Nigel Bajema
+ * @author Nigel B
  */
 public class ListClass {
     private Class myclass;
