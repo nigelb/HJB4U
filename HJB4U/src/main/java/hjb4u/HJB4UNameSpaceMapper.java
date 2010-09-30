@@ -28,12 +28,15 @@ import java.util.Set;
 public class HJB4UNameSpaceMapper extends NamespacePrefixMapper {
     private Hashtable<String, String> namespace;
 
+	public static final String DEFAULT = "__DEFAULT__";
+
     public HJB4UNameSpaceMapper(Hashtable<String, String> namespace) {
         this.namespace = namespace;
     }
 
     public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
         String toRet = namespace.get(namespaceUri);
+		if(toRet.equals(DEFAULT)){return null;}
         if(toRet == null) {return suggestion;}
         return toRet;
     }

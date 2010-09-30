@@ -19,10 +19,11 @@
 
 package hjb4u;
 
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import hjb4u.config.DBList;
 import hjb4u.config.HJB4UConfiguration;
 import hjb4u.config.NameSpaceMapping;
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import hjb4u.exceptions.NamespaceException;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -49,148 +50,171 @@ import java.util.List;
  * @author Nigel B
  */
 public class SettingsStore {
-    private HJB4UConfiguration settings;
-    private static SettingsStore instance;
-    private String conf_dir;
-    private File store;
-    private JAXBContext context = JAXBContext.newInstance(HJB4UConfiguration.class);
-    private Unmarshaller unmar = context.createUnmarshaller();
-    private Marshaller mar = context.createMarshaller();
-    private Logger logger = Logger.getLogger(SettingsStore.class);
-    private DBList templates;
-    private String episode = "META-INF/sun-jaxb.episode";
+	private HJB4UConfiguration settings;
+	private static SettingsStore instance;
+	private String conf_dir;
+	private File store;
+	private JAXBContext context = JAXBContext.newInstance(HJB4UConfiguration.class);
+	private Unmarshaller unmar = context.createUnmarshaller();
+	private Marshaller mar = context.createMarshaller();
+	private Logger logger = Logger.getLogger(SettingsStore.class);
+	private DBList templates;
+	private String episode = "META-INF/sun-jaxb.episode";
 
-    public static void instanciate(String conf_dir, String settings) throws JAXBException {
-        instance = new SettingsStore(conf_dir, new File(conf_dir + File.separator + settings));
-    }
+	public static void instanciate(String conf_dir, String settings) throws JAXBException {
+		instance = new SettingsStore(conf_dir, new File(conf_dir + File.separator + settings));
+	}
 
-    private SettingsStore(String conf_dir, File store) throws JAXBException {
-        this.conf_dir = conf_dir;
-        this.store = store;
-
-
-        try {
-            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            settings = (HJB4UConfiguration) unmar.unmarshal(store);
-        } catch (JAXBException e) {
-
-            if (e.getLinkedException() instanceof FileNotFoundException) {
-                logger.debug("Settings Not Found.");
-                settings = new HJB4UConfiguration();
-                settings.setNamespaces(makeDefaultNamespaces());
-            } else {
-                throw e;
-            }
-        }
-
-    }
-
-    public List<NameSpaceMapping> makeDefaultNamespaces() {
-        ArrayList<NameSpaceMapping> toRet = new ArrayList<NameSpaceMapping>();
-        try {
-            URL nsmap = this.getClass().getClassLoader().getResource(episode);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(nsmap.openStream());
-            Element root = doc.getDocumentElement();
-            NodeList nl = root.getChildNodes();
-            Node n;
-            Element e;
-            int nscount = 1;
-            NameSpaceMapping nsm;
-            for (int i = nl.getLength(); i >= 0; i--) {
-                n = nl.item(i);
-                if (n instanceof Element) {
-                    e = (Element) n;
-                    toRet.add(nsm = new NameSpaceMapping(e.getAttribute("xmlns:tns"), "ns" + nscount++));
-                    logger.debug(new StringBuilder().append(nsm.getPrefix()).append(": ").append(nsm.getNamespace()).toString());
-                }
-            }
-        } catch (Exception e) {
-            logger.debug(e, e);
-            return toRet;
-        }
-        return toRet;
-    }
-
-    public List<ListClass> makeRootElementList() {
-        ArrayList<ListClass> toRet = new ArrayList<ListClass>();
-        try {
-            Class[] cls = ClassFinder.getEpisodeClasses(this.getClass().getClassLoader().getResource(episode));
-            for (Class cl : cls) {
-                toRet.add(new ListClass(cl));
-            }
-        } catch (IOException e) {
-            logger.error(e, e);
-        }
-        return toRet;
-    }
-
-    public Class[] getAllJAXBClasses() {
-        Class[] cls = new Class[]{};
-        try {
-            cls = ClassFinder.findAllJAXBClasses(this.getClass().getClassLoader().getResource(episode));
-        } catch (IOException e) {
-            logger.error(e, e);
-        }
-        return cls;
-    }
-
-    public void save() throws JAXBException, FileNotFoundException {
-        OutputStream os;
-        mar.marshal(settings, os = new BufferedOutputStream(new FileOutputStream(store)));
-        try {
-            os.flush();
-            os.close();
-        } catch (IOException e) {
-            logger.error(e, e);
-        }
-
-    }
-
-    public static SettingsStore getInstance() {
-        return instance;
-    }
-
-    public HJB4UConfiguration getSettings() {
-        return settings;
-    }
-
-    public File getStoreLocation() {
-        return store;
-    }
-
-    public String getStorePath() {
-        try {
-            return store.getAbsoluteFile().getCanonicalPath();
-        } catch (IOException e) {
-            logger.error(e, e);
-        }
-        return store.getPath();
-    }
-
-    public String getConfDir() {
-        return conf_dir;
-    }
-
-    public NamespacePrefixMapper getNamespaceMapper() {
-        Hashtable<String, String> map = new Hashtable<String, String>();
-        for (int i = 0; i < settings.getNamespaces().size(); i++) {
-            NameSpaceMapping ns = settings.getNamespaces().get(i);
-            map.put(ns.getNamespace(), ns.getPrefix());
-        }
-
-        return new HJB4UNameSpaceMapper(map);
-    }
+	private SettingsStore(String conf_dir, File store) throws JAXBException {
+		this.conf_dir = conf_dir;
+		this.store = store;
 
 
-    public void setDatabaseTemplates(DBList templates) {
-        this.templates = templates;
-    }
+		try {
+			mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			settings = (HJB4UConfiguration) unmar.unmarshal(store);
+		} catch (JAXBException e) {
 
-    public DBList getTemplates() {
-        return templates;
-    }
+			if (e.getLinkedException() instanceof FileNotFoundException) {
+				logger.debug("Settings Not Found.");
+				settings = new HJB4UConfiguration();
+				settings.setNamespaces(makeDefaultNamespaces());
+			}else {
+				throw e;
+			}
+		}catch(NamespaceException npe)
+		{
+			logger.error("Namespace Mappings have been curropted.");
+			logger.info("Using default Namespace Mappings.");
+			NameSpaceMapping.__ignore = true;
+			settings = (HJB4UConfiguration) unmar.unmarshal(store);
+			NameSpaceMapping.__ignore = false;
+			settings.setNamespaces(makeDefaultNamespaces());
+			try {
+				save();
+			} catch (FileNotFoundException e) {
+				logger.error("Could not revert namespaces.");
+			}
+		}
+
+	}
+
+	public List<NameSpaceMapping> makeDefaultNamespaces() {
+		ArrayList<NameSpaceMapping> toRet = new ArrayList<NameSpaceMapping>();
+		try {
+			URL nsmap = this.getClass().getClassLoader().getResource(episode);
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(nsmap.openStream());
+			Element root = doc.getDocumentElement();
+			NodeList nl = root.getChildNodes();
+			Node n;
+			Element e;
+			int nscount = 1;
+			NameSpaceMapping nsm;
+			for (int i = nl.getLength(); i >= 0; i--) {
+				n = nl.item(i);
+				if (n instanceof Element) {
+					e = (Element) n;
+					toRet.add(nsm = new NameSpaceMapping(e.getAttribute("xmlns:tns"), "ns" + nscount++));
+					logger.debug(new StringBuilder().append(nsm.getPrefix()).append(": ").append(nsm.getNamespace()).toString());
+				}
+			}
+		} catch (Exception e) {
+			logger.debug(e, e);
+			return toRet;
+		}
+		return toRet;
+	}
+
+	public List<ListClass> makeRootElementList() {
+		ArrayList<ListClass> toRet = new ArrayList<ListClass>();
+		try {
+			Class[] cls = ClassFinder.getEpisodeClasses(this.getClass().getClassLoader().getResource(episode));
+			for (Class cl : cls) {
+				toRet.add(new ListClass(cl));
+			}
+		} catch (IOException e) {
+			logger.error(e, e);
+		}
+		return toRet;
+	}
+
+	public Class[] getAllJAXBClasses() {
+		Class[] cls = new Class[]{};
+		try {
+			cls = ClassFinder.findAllJAXBClasses(this.getClass().getClassLoader().getResource(episode));
+		} catch (IOException e) {
+			logger.error(e, e);
+		}
+		return cls;
+	}
+
+	public void save() throws JAXBException, FileNotFoundException {
+		OutputStream os;
+		mar.marshal(settings, os = new BufferedOutputStream(new FileOutputStream(store)));
+		try {
+			os.flush();
+			os.close();
+		} catch (IOException e) {
+			logger.error(e, e);
+		}
+
+	}
+
+	public static SettingsStore getInstance() {
+		return instance;
+	}
+
+	public HJB4UConfiguration getSettings() {
+		return settings;
+	}
+
+	public File getStoreLocation() {
+		return store;
+	}
+
+	public String getStorePath() {
+		try {
+			return store.getAbsoluteFile().getCanonicalPath();
+		} catch (IOException e) {
+			logger.error(e, e);
+		}
+		return store.getPath();
+	}
+
+	public String getConfDir() {
+		return conf_dir;
+	}
+
+	public NamespacePrefixMapper getNamespaceMapper() {
+		Hashtable<String, String> map = new Hashtable<String, String>();
+		boolean has_default = false;
+		for (int i = 0; i < settings.getNamespaces().size(); i++) {
+			NameSpaceMapping ns = settings.getNamespaces().get(i);
+			if (ns.isDefault()) {
+				if (has_default) {
+					logger.error(String.format("There is already a default Namespace, so %s cannot be it. Reverting to default Namespace Map.", ns.getNamespace()));
+					settings.setNamespaces(makeDefaultNamespaces());
+					return getNamespaceMapper();
+				}
+				map.put(ns.getNamespace(), HJB4UNameSpaceMapper.DEFAULT);
+				has_default = true;
+			} else {
+				map.put(ns.getNamespace(), ns.getPrefix());
+			}
+		}
+		return new HJB4UNameSpaceMapper(map);
+	}
+
+
+	public void setDatabaseTemplates(DBList templates) {
+		this.templates = templates;
+	}
+
+	public DBList getTemplates() {
+		return templates;
+	}
 
 	public String getEpisode() {
 		return episode;

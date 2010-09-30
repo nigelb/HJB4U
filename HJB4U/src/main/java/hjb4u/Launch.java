@@ -30,8 +30,10 @@ import static hjb4u.config.Constants.LF5AppenderName;
 import static hjb4u.config.Constants.PaneAppenderName;
 import hjb4u.config.DBList;
 import hjb4u.config.HJB4UConfiguration;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
+import org.apache.log4j.Priority;
 import org.apache.log4j.lf5.LF5Appender;
 import org.xml.sax.SAXException;
 
@@ -44,15 +46,18 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 
 public class Launch {
     private static String conf_dir;
 
-
     public static void main(String[] args) throws JAXBException, IOException, SAXException {
-        Properties schema = new Properties();
+		ArrayList<Pair<Level,String>> preLoggingMessages = new ArrayList<Pair<Level, String>>();
+
+        //Load the schema.properties file.
+		Properties schema = new Properties();
         String pgkPath = Launch.class.getPackage().getName().replace('.', '/');
         String conf_path = pgkPath + "/conf";
         String loc = conf_path + "/schema.properties";
@@ -64,23 +69,48 @@ public class Launch {
         }
         conf_dir = System.getProperty("user.home") + File.separator + HJB4U_PATH + File.separator + schema.getProperty(UUID);
 
-        File confdir = new File(conf_dir);
-        if (!confdir.exists()) {
-            if (confdir.mkdirs()) {
-                for (String res : new String[]{"log4j.xml", "log4j.dtd", "persistence.properties", "settings.xml"}) {
-                    copyResource(cl.getResource(String.format("%s/%s", conf_path, res)), new File(joinPath(conf_dir, res)));
-                }
-            }
-        }
+		//Copy resources from classpath (generally inside the JAR) to the
+		//local storage area. ReThrows Null pointers if the file is required.
+		File confdir = new File(conf_dir);
+		if (!confdir.exists()) {
+			if (confdir.mkdirs()) {
+				for (Pair<String, Boolean> res : new Pair[]{
+						new Pair<String, Boolean>("log4j.xml", true),
+						new Pair<String, Boolean>("log4j.dtd", true),
+						new Pair<String, Boolean>("persistence.properties", true),
+						new Pair<String, Boolean>("settings.xml", false)}) {
+					try {
+						copyResource(cl.getResource(String.format("%s/%s", conf_path, res)), new File(joinPath(conf_dir, res.getItem1())));
+					}catch(NullPointerException npe)
+					{
+						if(res.getItem2())
+						{
+							throw npe;
+						}else
+						{
+							preLoggingMessages.add(new Pair<Level, String>(Level.INFO, String.format("%s not included in classpath, ignoring.", res.getItem1())));
+						}
+					}
+				}
+			}
+		}
 
+		//Initialise the logging.
         new Log4j_Init(new FileInputStream(joinPath(conf_dir, "log4j.xml"))).logConf();
         Logger logger = Logger.getLogger(Launch.class);
+
+		//Log all messages that were qued up before logging was available.
+		for (Pair<Level, String> preLoggingMessage : preLoggingMessages) {
+			logger.log(preLoggingMessage.getItem1(), preLoggingMessage.getItem2());
+		}
+		//Instantiate the settings store.
         SettingsStore.instanciate(conf_dir, "settings.xml");
         HJB4UConfiguration settings = SettingsStore.getInstance().getSettings();
         if (settings.getSchema() == null) {
             settings.setSchema(schema.getProperty(SCHEMA_FILE));
         }
 
+		//More initialization for logging.
         if (settings.isEnableLF5()) {
             LF5Appender appender = new LF5Appender();
             appender.setMaxNumberOfRecords(settings.getLf5Size());

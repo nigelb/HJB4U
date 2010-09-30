@@ -19,6 +19,8 @@
 
 package hjb4u.config;
 
+import hjb4u.exceptions.NamespaceException;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -31,37 +33,68 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "NameSpace")
 public class NameSpaceMapping {
-    private String namespace;
-    private String prefix;
+	private String namespace;
+	private String prefix = null;
+	private boolean _default = false;
 
-    public NameSpaceMapping() {
-    }
+	public static boolean __ignore = false;
+	private static boolean __default = false;
 
-    public NameSpaceMapping(String namespace, String prefix) {
-        this.namespace = namespace;
-        this.prefix = prefix;
-    }
+	public NameSpaceMapping() {
+	}
 
-    @XmlAttribute
-    public String getNamespace() {
-        return namespace;
-    }
+	public NameSpaceMapping(String namespace, String prefix) {
+		this.namespace = namespace;
+		this.prefix = prefix;
+	}
 
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
+	public NameSpaceMapping(String namespace) {
+		this.namespace = namespace;
+		setDefault(true);
 
-    @XmlAttribute
-    public String getPrefix() {
-        return prefix;
-    }
+	}
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
+	@XmlAttribute
+	public String getNamespace() {
+		return namespace;
+	}
 
-    @Override
-    public String toString() {
-        return new StringBuilder().append(prefix).append("::").append(namespace).toString();
-    }
+	@XmlAttribute(name = "default")
+	public boolean isDefault() {
+		return _default;
+	}
+
+	public void setDefault(boolean _default) {
+	   if((this._default && !_default && ! __default)
+			   || (!this._default && _default &&  __default))
+	   {
+		       if(!__ignore){throw new NamespaceException();}
+	   }
+		this._default = _default;
+		__default = _default;
+	}
+
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
+	}
+
+	@XmlAttribute
+	public String getPrefix() {
+		return prefix;
+	}
+
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public static boolean defaultExists() {
+		return __default;
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder().append(prefix == null ? "[default]" : prefix).append("::").append(namespace).toString();
+	}
+
 }
