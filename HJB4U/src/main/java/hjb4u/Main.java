@@ -85,8 +85,8 @@ public class Main {
         marshaller = jaxbContext.createMarshaller();
         vmarshaller = jaxbContext.createMarshaller();
         unmarshaller = jaxbContext.createUnmarshaller();
-//        schema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-//                .newSchema(this.getClass().getClassLoader().getResource(settings.getSchema()));
+        schema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
+                .newSchema(this.getClass().getClassLoader().getResource(settings.getSchema()));
 
         vmarshaller.setSchema(schema);
         vmarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
