@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title>nigelb/HJB4U @ GitHub</title>
-	
+	<link rel="stylesheet" type="text/css" href="/css/hjb4u.css" />
 	<style type="text/css">
 		body {
   		margin-top: 1.0em;
@@ -49,8 +49,34 @@
       <span class="small">by <a href="http://github.com/nigelb">nigelb</a></span></h1>
 
     <div class="description">
-      HJB4U is a toolchain for the creation of a HyperJAXB front end database users.
+HJB4U is a toolchain for the creation of a HyperJAXB front end database users. It was created because we had a number of databases users that had to convert there data into XML for govenment reporting purposes. Unfortunantly the schema was constantly evolving, with monthly updates over the course of a year(s). I simply didn't have the time to tweak the code every time they decided to update the schema, so HJB4U was born. 
     </div>
+<div id="hjb4u_text">
+<h4>Developer Workflow:</h4>
+<ol>
+	<li>Select Schema</li>
+	<li>Generate Sources</li>
+
+	<li>Create default configuration</li>
+	<li>Package</li>
+	<li>Give to Users</li>
+</ol>
+<h4>User Workflow:</h4>
+<ol>
+	<li><i>Create Database</i></li>
+	<li>Populate Database</li>
+
+	<li><i>Create XML</i></li>
+	<li>Valitadte XML</li>
+	<li>Fix Issues</li>
+	<li>Repeat Steps 3-5 until validation.</li>
+</ol>
+</div>
+<div id="hjb4u_image">
+<img src="images/hjb4u_workflow.png"/>
+</div>
+
+</div>
 
 
 
