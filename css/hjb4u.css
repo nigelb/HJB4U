@@ -117,7 +117,7 @@ div.first_tab
 
 div.tab
 {
-	width: 100px;
+	width: 120px;
 	border-style: solid;
 	border-width: 1px;	
 	margin-right: 10px;
@@ -137,4 +137,14 @@ div#hjb4u_image img
 {
 }
 
+div.figure
+{
+	text-align: center;
+}
 
+div.figure_caption
+{
+	font-weight: bold;
+	margin-bottom: 30px;
+	text-align: center;
+}

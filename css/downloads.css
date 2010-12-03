@@ -1,0 +1,22 @@
+div#downloads_tab
+{
+	background-color: white;
+}
+
+div.download
+{
+	float: left;
+}
+
+div#content_title
+{
+	margin-left:300px;
+	margin-bottom:50px;
+	padding-top: 10px;
+	text-align: left;
+}
+
+div#download_content
+{
+	margin-left: 50px;
+}
