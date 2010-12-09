@@ -48,12 +48,12 @@ public class util {
                 "jdbc:mysql://<host>/<database name>");
 
         dbs.add(db);
-        db = new DBConf("MSAccess via ODBC",
-                "hjb4u.database.Access2000Dialect",
-                "sun.jdbc.odbc.JdbcOdbcDriver",
-                null,
-                null,
-                "jdbc:odbc:<ODBC database name>");
+        db = new DBConf("Mysql5InnoDB - Bits are converted to Integers",
+                "hjb4u.database.NoBitsMySQL5InnoDBDialect",
+                "com.mysql.jdbc.Driver",
+                "username",
+                "password",
+                "jdbc:mysql://<host>/<database name>");
         dbs.add(db);
         list.setDbs(dbs);
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
