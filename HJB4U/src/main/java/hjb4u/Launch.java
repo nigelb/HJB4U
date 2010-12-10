@@ -80,7 +80,7 @@ public class Launch {
 						new Pair<String, Boolean>("persistence.properties", true),
 						new Pair<String, Boolean>("settings.xml", false)}) {
 					try {
-						copyResource(cl.getResource(String.format("%s/%s", conf_path, res)), new File(joinPath(conf_dir, res.getItem1())));
+						copyResource(cl.getResource(String.format("%s/%s", conf_path, res.getItem1())), new File(joinPath(conf_dir, res.getItem1())));
 					}catch(NullPointerException npe)
 					{
 						if(res.getItem2())
