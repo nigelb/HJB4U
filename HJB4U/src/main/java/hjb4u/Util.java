@@ -37,7 +37,10 @@ public class Util {
     }
 
     public static void copyResource(URL from, File to) {
-        System.out.println("Copring resource: "+from+" to: "+to);
+        if(from == null){
+            System.out.printf("Resource could not be copied to: %s%n", to);
+            return;}
+        System.out.printf("Copring resource: %s to: %s%n", from, to);
         try {
             OutputStream fos = new BufferedOutputStream(new FileOutputStream(to));
             InputStream in = new BufferedInputStream(from.openStream());
