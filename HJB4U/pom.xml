@@ -35,6 +35,7 @@
     <properties>
         <hjb4uresources>src/main/resources</hjb4uresources>
         <hjb4u_conf>${hjb4uresources}/${artifactId}/conf</hjb4u_conf>
+        <schemas.resources>target/scheams</schemas.resources>
     </properties>
 
     <prerequisites>
@@ -261,11 +262,40 @@
                         <argument>${hjb4u_conf}</argument>
                     </arguments>
                 </configuration>
-            </plugin>            
+            </plugin>
+
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.6</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.ant</groupId>
+                                <artifactId>ant</artifactId>
+                                <version>1.8.0</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <target>
+                                        <copy todir="${schemas.resources}">
+                                            <fileset dir="${hjb4u.schema.directory}"/>
+                                        </copy>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
         </plugins>
+
         <resources>
             <resource>
-                <directory>${hjb4u.schema.directory}</directory>
+                <directory>${schemas.resources}</directory>
             </resource>
             <resource>
                 <directory>${hjb4uresources}</directory>
