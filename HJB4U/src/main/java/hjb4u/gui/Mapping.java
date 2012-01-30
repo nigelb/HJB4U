@@ -17,10 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package hjb4u;
+package hjb4u.gui;
 
 import hjb4u.AnnotationPair;
-import hjb4u.ListClass;
 import hjb4u.Pair;
 import hjb4u.SettingsStore;
 

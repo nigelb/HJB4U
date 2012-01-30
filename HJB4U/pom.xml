@@ -26,11 +26,11 @@
     <version>0.0.1</version>
     <packaging>jar</packaging>
     <licenses>
-       <license>
-          <name>GNU General Public License (GPL) Version 2</name>
-          <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
-       </license>
-    </licenses>    
+        <license>
+            <name>GNU General Public License (GPL) Version 2</name>
+            <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+        </license>
+    </licenses>
     <name>HyperJAXB 4 Users</name>
     <properties>
         <hjb4uresources>src/main/resources</hjb4uresources>
@@ -215,7 +215,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>${artifactId}.Launch</mainClass>
+                            <mainClass>${artifactId}.launch.Launch</mainClass>
                             <packageName>hjb4u</packageName>
                         </manifest>
                         <manifestEntries>
@@ -264,32 +264,32 @@
                 </configuration>
             </plugin>
 
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.ant</groupId>
-                                <artifactId>ant</artifactId>
-                                <version>1.8.0</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <phase>generate-sources</phase>
-                                <configuration>
-                                    <target>
-                                        <copy todir="${schemas.resources}">
-                                            <fileset dir="${hjb4u.schema.directory}"/>
-                                        </copy>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant</artifactId>
+                        <version>1.8.0</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <copy todir="${schemas.resources}">
+                                    <fileset dir="${hjb4u.schema.directory}"/>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
 

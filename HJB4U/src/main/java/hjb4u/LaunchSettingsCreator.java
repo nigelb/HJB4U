@@ -20,8 +20,9 @@
 package hjb4u;
 
 import hjb4u.config.DBList;
+import hjb4u.gui.Settings;
+import hjb4u.launch.Launch;
 
-import javax.swing.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;

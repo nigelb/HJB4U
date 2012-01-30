@@ -24,6 +24,7 @@ import hjb4u.config.DBList;
 import hjb4u.config.HJB4UConfiguration;
 import hjb4u.config.NameSpaceMapping;
 import hjb4u.exceptions.NamespaceException;
+import hjb4u.gui.ListClass;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

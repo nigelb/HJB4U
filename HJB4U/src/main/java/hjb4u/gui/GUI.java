@@ -17,12 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package hjb4u;
+package hjb4u.gui;
 
 import static hjb4u.config.Constants.line_sep;
 
-import hjb4u.Main;
-import hjb4u.SettingsStore;
+import hjb4u.*;
 import hjb4u.config.HJB4UConfiguration;
 import hjb4u.config.HJB4UConfigurationException;
 import org.apache.log4j.Logger;
