@@ -26,6 +26,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -130,6 +131,7 @@ public class ClassFinder {
     private static void recurse(Class cls, Hashtable<String, Integer> packages, Hashtable<String, Class> done) {
 		if(cls.isArray()){cls = cls.getComponentType();}
         if (done.get(cls.getName()) != null || cls.isPrimitive() || !in(cls.getPackage().getName(), packages)) return;
+        System.out.println(cls);
         done.put(cls.getName(), cls);
         if (cls.isEnum()) return;
         Field[] fields = cls.getDeclaredFields();
@@ -137,7 +139,12 @@ public class ClassFinder {
         for (Field field : fields) {
             type = field.getType();
             if (field.getType() == List.class) {
+                try{
                 type = (Class) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
+                }catch(ClassCastException c)
+                {
+                    logger.warn("Issue generating table listing.");
+                }
             }
             recurse(type, packages, done);
         }
