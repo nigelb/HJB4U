@@ -6,4 +6,4 @@ set CLASSPATH=!CLASSPATH!;%%a
 )
 set CLASSPATH=!CLASSPATH!"
 
-java -cp %~dp0/../java/* hjb4u.launch.CLCreateXML %1 %2 %3 %4 %5 %6 %7 %8 %9
+java -cp %~dp0/../java/* hjb4u.launch.Launch
