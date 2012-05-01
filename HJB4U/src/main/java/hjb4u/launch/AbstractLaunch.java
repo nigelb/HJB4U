@@ -48,7 +48,7 @@ import static hjb4u.config.Constants.PaneAppenderName;
  * Date: 2/1/12
  * Time: 11:42 AM
  *
- * @Author Nigel Bajema
+ * @Author NigelB
  */
 public abstract class AbstractLaunch {
     private static String conf_dir;

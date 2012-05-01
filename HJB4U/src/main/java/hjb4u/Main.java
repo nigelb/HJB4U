@@ -39,11 +39,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
+import javax.xml.bind.*;
+
 import static javax.xml.bind.JAXBContext.newInstance;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -177,7 +176,12 @@ public class Main {
             if (!settings.isValidate()) {
                 unmarshaller.setSchema(null);
             }
-            emanager.persist(unmarshaller.unmarshal(in));
+            Object o = unmarshaller.unmarshal(in);
+            if(o instanceof JAXBElement)
+            {
+                o = ((JAXBElement)o).getValue();
+            }
+            emanager.persist(o);
             t.commit();
         } finally {
             doClose(emanager);

@@ -34,7 +34,7 @@ import java.io.IOException;
  * Date: 2/1/12
  * Time: 11:41 AM
  *
- * @Author Nigel Bajema
+ * @Author NigelB
  */
 public class CLCreateXML extends AbstractLaunch{
     public static void main(String[] args) throws JAXBException, IOException, SAXException, TransformerException, ClassNotFoundException, HJB4UConfigurationException, ParserConfigurationException {
