@@ -1,4 +1,8 @@
 @echo off
+
+%~d0
+cd %~p0
+
 setLocal EnableDelayedExpansion
 set CLASSPATH="
 for /R ../java %%a in (*.jar) do (
