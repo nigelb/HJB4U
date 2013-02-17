@@ -149,7 +149,7 @@ public class Main {
         createEM().close();
     }
 
-    private EntityManager createEM() throws HJB4UConfigurationException {
+    EntityManager createEM() throws HJB4UConfigurationException {
         Properties p = getPersistance();
         fac = Persistence.createEntityManagerFactory(new MyRoundtripTest().getPersistenceUnitName(), p);
         return fac.createEntityManager(p);
