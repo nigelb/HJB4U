@@ -53,7 +53,7 @@ import static hjb4u.config.Constants.PaneAppenderName;
 public abstract class AbstractLaunch {
     private static String conf_dir;
 
-    static HJB4UConfiguration initializeHAJJ4U(boolean gui) throws IOException, JAXBException {
+    protected static HJB4UConfiguration initializeHAJJ4U(boolean gui) throws IOException, JAXBException {
         ArrayList<Pair<Level, String>> preLoggingMessages = new ArrayList<Pair<Level, String>>();
 
         //Load the schema.properties file.
