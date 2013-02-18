@@ -17,7 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package hjb4u.config;
+package hjb4u.config.hjb4u;
 
 import org.apache.log4j.Level;
 

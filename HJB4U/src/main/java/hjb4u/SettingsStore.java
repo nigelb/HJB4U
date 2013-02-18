@@ -20,9 +20,9 @@
 package hjb4u;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
-import hjb4u.config.DBList;
-import hjb4u.config.HJB4UConfiguration;
-import hjb4u.config.NameSpaceMapping;
+import hjb4u.config.hjb4u.DBList;
+import hjb4u.config.hjb4u.HJB4UConfiguration;
+import hjb4u.config.hjb4u.NameSpaceMapping;
 import hjb4u.exceptions.NamespaceException;
 import hjb4u.gui.ListClass;
 import org.apache.log4j.Logger;

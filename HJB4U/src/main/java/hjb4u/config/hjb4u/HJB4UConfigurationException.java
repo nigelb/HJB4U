@@ -17,21 +17,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package hjb4u.config;
+package hjb4u.config.hjb4u;
 
 /**
- * <code>Constants</code>
- * Date: Aug 20, 2009
- * Time: 8:47:34 PM
+ * <code>HJB4UConfigurationException</code>
+ * Date: Aug 23, 2009
+ * Time: 1:04:11 PM
  *
  * @author Nigel B
  */
-public interface Constants {
-    public static final String LF5AppenderName = "__LF5HJB4UAppender__";
-    public static final String PaneAppenderName = "__PaneHJB4UAppender__";
-    public static final String line_sep = System.getProperty("line.separator");
+public class HJB4UConfigurationException extends Exception {
+    public HJB4UConfigurationException() {
+        super();
+    }
 
-    public static final String HJB4U_PATH = ".hjb4u";
-    public static final String SCHEMA_FILE = "hjb4u.schema.file";
-    public static final String UUID = "uuid";
+    public HJB4UConfigurationException(String message) {
+        super(message);
+    }
+
+    public HJB4UConfigurationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public HJB4UConfigurationException(Throwable cause) {
+        super(cause);
+    }
 }

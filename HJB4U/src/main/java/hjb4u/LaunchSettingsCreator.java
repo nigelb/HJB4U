@@ -19,7 +19,7 @@
 
 package hjb4u;
 
-import hjb4u.config.DBList;
+import hjb4u.config.hjb4u.DBList;
 import hjb4u.gui.Settings;
 import hjb4u.launch.Launch;
 
