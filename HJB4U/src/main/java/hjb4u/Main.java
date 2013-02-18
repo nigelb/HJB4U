@@ -232,7 +232,7 @@ public class Main {
             }
         });
         for (File file : transforms) {
-            System.out.println(file);
+            logger.info(String.format("Transforming output with %s", file));
             Transformer transformer = tf.newTransformer(new StreamSource(file));
             result = builder.newDocument();
             transformer.transform(domSource, new DOMResult(result));
