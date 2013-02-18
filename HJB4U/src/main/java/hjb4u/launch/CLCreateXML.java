@@ -19,8 +19,8 @@
 package hjb4u.launch;
 
 import hjb4u.Main;
-import hjb4u.config.HJB4UConfiguration;
-import hjb4u.config.HJB4UConfigurationException;
+import hjb4u.config.hjb4u.HJB4UConfiguration;
+import hjb4u.config.hjb4u.HJB4UConfigurationException;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;

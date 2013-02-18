@@ -19,6 +19,10 @@
 
 package hjb4u.config;
 
+import hjb4u.config.hjb4u.DBConf;
+import hjb4u.config.hjb4u.DBList;
+import hjb4u.config.hjb4u.HJB4UConfiguration;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;

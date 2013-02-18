@@ -20,10 +20,10 @@
 package hjb4u.gui;
 
 import hjb4u.SettingsStore;
-import hjb4u.config.DBConf;
-import hjb4u.config.ELogLevel;
-import hjb4u.config.HJB4UConfiguration;
-import hjb4u.config.NameSpaceMapping;
+import hjb4u.config.hjb4u.DBConf;
+import hjb4u.config.hjb4u.ELogLevel;
+import hjb4u.config.hjb4u.HJB4UConfiguration;
+import hjb4u.config.hjb4u.NameSpaceMapping;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

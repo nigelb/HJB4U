@@ -19,11 +19,11 @@
 
 package hjb4u.gui;
 
-import static hjb4u.config.Constants.line_sep;
+import static hjb4u.config.hjb4u.Constants.line_sep;
 
 import hjb4u.*;
-import hjb4u.config.HJB4UConfiguration;
-import hjb4u.config.HJB4UConfigurationException;
+import hjb4u.config.hjb4u.HJB4UConfiguration;
+import hjb4u.config.hjb4u.HJB4UConfigurationException;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 

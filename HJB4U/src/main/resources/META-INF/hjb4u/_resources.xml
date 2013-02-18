@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Resources>
+    <Resource errorOnFail="true">
+        <resourceLocation>hjb4u/conf/log4j.xml</resourceLocation>
+        <outputLocation>{0}/log4j.xml</outputLocation>
+    </Resource>
+    <Resource errorOnFail="true">
+        <resourceLocation>hjb4u/conf/log4j.dtd</resourceLocation>
+        <outputLocation>{0}/log4j.dtd</outputLocation>
+    </Resource>
+    <Resource errorOnFail="true">
+        <resourceLocation>hjb4u/conf/persistence.properties</resourceLocation>
+        <outputLocation>{0}/persistence.properties</outputLocation>
+    </Resource>
+    <Resource errorOnFail="false">
+        <resourceLocation>hjb4u/conf/settings.xml</resourceLocation>
+        <outputLocation>{0}/settings.xml</outputLocation>
+    </Resource>
+    <Resource errorOnFail="true">
+        <resourceLocation>hjb4u/xslt/999_remove_HJID.xsl</resourceLocation>
+        <outputLocation>{0}/xslt/999_remove_HJID.xsl</outputLocation>
+    </Resource>
+</Resources>

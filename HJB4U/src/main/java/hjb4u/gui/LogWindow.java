@@ -19,7 +19,7 @@
 
 package hjb4u.gui;
 
-import hjb4u.config.Constants;
+import hjb4u.config.hjb4u.Constants;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

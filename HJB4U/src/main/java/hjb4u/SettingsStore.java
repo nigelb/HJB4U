@@ -20,6 +20,7 @@
 package hjb4u;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import hjb4u.config.hjb4u.Constants;
 import hjb4u.config.hjb4u.DBList;
 import hjb4u.config.hjb4u.HJB4UConfiguration;
 import hjb4u.config.hjb4u.NameSpaceMapping;
@@ -42,6 +43,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+
+import static hjb4u.Util.joinPath;
 
 /**
  * <code>SettingsStore</code>
@@ -187,6 +190,11 @@ public class SettingsStore {
 	public String getConfDir() {
 		return conf_dir;
 	}
+
+    public String getXSLTDir()
+    {
+        return joinPath(getConfDir(), Constants.XSLT_DIR_PATH);
+    }
 
 	public NamespacePrefixMapper getNamespaceMapper() {
 		Hashtable<String, String> map = new Hashtable<String, String>();

@@ -21,8 +21,10 @@ package hjb4u.launch;
 import hjb4u.Main;
 import hjb4u.Pair;
 import hjb4u.SettingsStore;
-import hjb4u.config.DBList;
-import hjb4u.config.HJB4UConfiguration;
+import hjb4u.config.hjb4u.DBList;
+import hjb4u.config.hjb4u.HJB4UConfiguration;
+import hjb4u.config.resources.Resource;
+import hjb4u.config.resources.Resources;
 import hjb4u.logging.Log4j_Init;
 import hjb4u.logging.MemoryAppender;
 import org.apache.log4j.Level;
@@ -36,13 +38,17 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import static hjb4u.Util.copyResource;
+import static hjb4u.Util.findResourceSiblings;
 import static hjb4u.Util.joinPath;
-import static hjb4u.config.Constants.*;
-import static hjb4u.config.Constants.PaneAppenderName;
+import static hjb4u.config.hjb4u.Constants.*;
+import static hjb4u.config.hjb4u.Constants.PaneAppenderName;
 
 /**
  * Date: 2/1/12
@@ -52,6 +58,7 @@ import static hjb4u.config.Constants.PaneAppenderName;
  */
 public abstract class AbstractLaunch {
     private static String conf_dir;
+    private static String xslt_dir;
 
     protected static HJB4UConfiguration initializeHAJJ4U(boolean gui) throws IOException, JAXBException {
         ArrayList<Pair<Level, String>> preLoggingMessages = new ArrayList<Pair<Level, String>>();
@@ -59,8 +66,9 @@ public abstract class AbstractLaunch {
         //Load the schema.properties file.
         Properties schema = new Properties();
         String pgkPath = Main.class.getPackage().getName().replace('.', '/');
-        String conf_path = pgkPath + "/conf";
-        String loc = conf_path + "/schema.properties";
+        String conf_resource_path = pgkPath + "/conf";
+        String xslt_resource_path = pgkPath + "/xslt";
+        String loc = conf_resource_path + "/schema.properties";
         ClassLoader cl = Launch.class.getClassLoader();
         schema.load((cl.getResource(loc).openStream()));
         if (schema.getProperty(UUID) == null) {
@@ -68,29 +76,12 @@ public abstract class AbstractLaunch {
             System.exit(1);
         }
         conf_dir = System.getProperty("user.home") + File.separator + HJB4U_PATH + File.separator + schema.getProperty(UUID);
+        xslt_dir = joinPath(conf_dir, XSLT_DIR_PATH);
 
         //Copy resources from classpath (generally inside the JAR) to the
         //local storage area. ReThrows Null pointers if the file is required.
-        File confdir = new File(conf_dir);
-        if (!confdir.exists()) {
-            if (confdir.mkdirs()) {
-                for (Pair<String, Boolean> res : new Pair[]{
-                        new Pair<String, Boolean>("log4j.xml", true),
-                        new Pair<String, Boolean>("log4j.dtd", true),
-                        new Pair<String, Boolean>("persistence.properties", true),
-                        new Pair<String, Boolean>("settings.xml", false)}) {
-                    try {
-                        copyResource(cl.getResource(String.format("%s/%s", conf_path, res.getItem1())), new File(joinPath(conf_dir, res.getItem1())));
-                    } catch (NullPointerException npe) {
-                        if (res.getItem2()) {
-                            throw npe;
-                        } else {
-                            preLoggingMessages.add(new Pair<Level, String>(Level.INFO, String.format("%s not included in classpath, ignoring.", res.getItem1())));
-                        }
-                    }
-                }
-            }
-        }
+        copyResources(cl.getResource("META-INF/hjb4u/_resources.xml"), preLoggingMessages);
+        copyResources(cl.getResource("META-INF/hjb4u/resources.xml"), preLoggingMessages);
 
         //Initialise the logging.
         new Log4j_Init(new FileInputStream(joinPath(conf_dir, "log4j.xml"))).logConf();
@@ -129,12 +120,36 @@ public abstract class AbstractLaunch {
         //Get the Database Templates.
         try {
             Unmarshaller umas = JAXBContext.newInstance(DBList.class).createUnmarshaller();
-            DBList templates = (DBList) umas.unmarshal(cl.getResourceAsStream(conf_path + "/databases.xml"));
+            DBList templates = (DBList) umas.unmarshal(cl.getResourceAsStream(conf_resource_path + "/databases.xml"));
             SettingsStore.getInstance().setDatabaseTemplates(templates);
         } catch (Exception e) {
             logger.warn("Could not load database templates: " + e, e);
         }
 
         return settings;
+    }
+
+    protected static void copyResources(URL resource, ArrayList<Pair<Level, String>> preLoggingMessages) throws JAXBException {
+        ClassLoader cl = Launch.class.getClassLoader();
+        Unmarshaller um = JAXBContext.newInstance(Resources.class).createUnmarshaller();
+        Resources r = (Resources) um.unmarshal(resource);
+        MessageFormat mf;
+        File out;
+        for (Resource res : r.getResources()) {
+            mf = new MessageFormat(res.getOutputLocation());
+            out = new File(mf.format(new Object[]{conf_dir}));
+            if (!out.exists()) {
+                out.getParentFile().mkdirs();
+                try {
+                    copyResource(cl.getResource(res.getResourceLocation()), out);
+                } catch (NullPointerException npe) {
+                    if (res.isErrorOnFail()) {
+                        throw npe;
+                    } else {
+                        preLoggingMessages.add(new Pair<Level, String>(Level.INFO, String.format("%s not included in classpath, ignoring.", res.getResourceLocation())));
+                    }
+                }
+            }
+        }
     }
 }

@@ -19,11 +19,9 @@
 
 package hjb4u;
 
-import hjb4u.MyRoundtripTest;
-import hjb4u.Util;
-import hjb4u.config.DBConf;
-import hjb4u.config.HJB4UConfiguration;
-import hjb4u.config.HJB4UConfigurationException;
+import hjb4u.config.hjb4u.DBConf;
+import hjb4u.config.hjb4u.HJB4UConfiguration;
+import hjb4u.config.hjb4u.HJB4UConfigurationException;
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -46,16 +44,17 @@ import static javax.xml.bind.JAXBContext.newInstance;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Properties;
 
 /**
@@ -206,20 +205,40 @@ public class Main {
             Element n;
 
             Object loadedObject = emanager.find(Class.forName(settings.getRootElementType()), settings.getRootID());
-            marshaller.marshal(loadedObject, n = doc.createElement("_____"));
-            NodeList nl = n.getChildNodes();
-
-            for (int i = 0; i < nl.getLength(); i++) {
-                if (nl.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                    removeHJID(nl.item(i), doc);
-                    doc.appendChild(nl.item(i));
-                }
-            }
-            return getDomString(doc);
+            marshaller.marshal(loadedObject, doc);
+//            NodeList nl = n.getChildNodes();
+//
+//            for (int i = 0; i < nl.getLength(); i++) {
+//                if (nl.item(i).getNodeType() == Node.ELEMENT_NODE) {
+////                    removeHJID(nl.item(i), doc);
+//                    doc.appendChild(nl.item(i));
+//                }
+//            }
+            return getDomString(postProcess(doc, builder));
         } finally {
             doClose(emanager);
         }
 
+    }
+
+    private Document postProcess(Document doc, DocumentBuilder builder) throws TransformerException {
+        DOMSource domSource = new DOMSource(doc);
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Document result = doc;
+        File[] transforms = new File(SettingsStore.getInstance().getXSLTDir()).listFiles();
+        Arrays.sort(transforms, new Comparator<File>() {
+            public int compare(File o1, File o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        for (File file : transforms) {
+            System.out.println(file);
+            Transformer transformer = tf.newTransformer(new StreamSource(file));
+            result = builder.newDocument();
+            transformer.transform(domSource, new DOMResult(result));
+            domSource = new DOMSource(result);
+        }
+        return result;
     }
 
 
