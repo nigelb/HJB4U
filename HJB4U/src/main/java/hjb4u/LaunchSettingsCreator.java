@@ -48,7 +48,7 @@ public class LaunchSettingsCreator {
 	private void run(String[] args) throws JAXBException, FileNotFoundException {
 		String pgkPath = Launch.class.getPackage().getName().replace('.', '/');
 		String conf_path = pgkPath + "/conf";
-		ClassLoader cl = MyRoundtripTest.class.getClassLoader();
+		ClassLoader cl = LaunchSettingsCreator.class.getClassLoader();
 		SettingsStore.instanciate(args[0], "settings.xml");
 		Unmarshaller umas = JAXBContext.newInstance(DBList.class).createUnmarshaller();
 		DBList templates = (DBList) umas.unmarshal(cl.getResourceAsStream(conf_path + "/databases.xml"));

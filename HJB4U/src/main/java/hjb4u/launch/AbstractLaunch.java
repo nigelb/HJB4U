@@ -38,14 +38,12 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import static hjb4u.Util.copyResource;
-import static hjb4u.Util.findResourceSiblings;
 import static hjb4u.Util.joinPath;
 import static hjb4u.config.hjb4u.Constants.*;
 import static hjb4u.config.hjb4u.Constants.PaneAppenderName;
@@ -59,29 +57,29 @@ import static hjb4u.config.hjb4u.Constants.PaneAppenderName;
 public abstract class AbstractLaunch {
     private static String conf_dir;
     private static String xslt_dir;
+    protected static Properties _settings = new Properties();
 
     protected static HJB4UConfiguration initializeHAJJ4U(boolean gui) throws IOException, JAXBException {
         ArrayList<Pair<Level, String>> preLoggingMessages = new ArrayList<Pair<Level, String>>();
 
         //Load the schema.properties file.
-        Properties schema = new Properties();
         String pgkPath = Main.class.getPackage().getName().replace('.', '/');
-        String conf_resource_path = pgkPath + "/conf";
+        String conf_resource_path = "META-INF/"+pgkPath + "/conf";
         String xslt_resource_path = pgkPath + "/xslt";
-        String loc = conf_resource_path + "/schema.properties";
+        String loc = conf_resource_path + "/settings.properties";
         ClassLoader cl = Launch.class.getClassLoader();
-        schema.load((cl.getResource(loc).openStream()));
-        if (schema.getProperty(UUID) == null) {
-            System.out.println("Could not get UUID. Exiting.");
+        _settings.load((cl.getResource(loc).openStream()));
+        if (_settings.getProperty(PROJECT_NAME) == null) {
+            System.out.println("Could not get Project Name. Exiting.");
             System.exit(1);
         }
-        conf_dir = System.getProperty("user.home") + File.separator + HJB4U_PATH + File.separator + schema.getProperty(UUID);
+        conf_dir = System.getProperty("user.home") + File.separator + HJB4U_PATH + File.separator + _settings.getProperty(PROJECT_NAME);
         xslt_dir = joinPath(conf_dir, XSLT_DIR_PATH);
 
         //Copy resources from classpath (generally inside the JAR) to the
         //local storage area. ReThrows Null pointers if the file is required.
-        copyResources(cl.getResource("META-INF/hjb4u/_resources.xml"), preLoggingMessages);
-        copyResources(cl.getResource("META-INF/hjb4u/resources.xml"), preLoggingMessages);
+        copyResources(cl.getResource("META-INF/hjb4u/conf/_resources.xml"), preLoggingMessages);
+        copyResources(cl.getResource("META-INF/hjb4u/conf/resources.xml"), preLoggingMessages);
 
         //Initialise the logging.
         new Log4j_Init(new FileInputStream(joinPath(conf_dir, "log4j.xml"))).logConf();
@@ -95,7 +93,7 @@ public abstract class AbstractLaunch {
         SettingsStore.instanciate(conf_dir, "settings.xml");
         HJB4UConfiguration settings = SettingsStore.getInstance().getSettings();
         if (settings.getSchema() == null) {
-            settings.setSchema(schema.getProperty(SCHEMA_FILE));
+            settings.setSchema(_settings.getProperty(SCHEMA_FILE));
         }
         if (gui) {
             //More initialization for logging.
