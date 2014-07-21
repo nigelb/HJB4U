@@ -16,21 +16,26 @@
   ~ along with this program; if not, write to the Free Software
   ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
   -->
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
-    <id>dist</id>
-    <includeBaseDirectory>false</includeBaseDirectory>
-    <formats>
-        <format>zip</format>
-    </formats>
-    <fileSets>
-        <fileSet>
-            <outputDirectory>/</outputDirectory>
-            <directory>${basedir}/target/install</directory>
-            <includes>
-                <include>**/**</include>
-            </includes>
-        </fileSet>
-    </fileSets>
-</assembly>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>hjb4u</groupId>
+    <artifactId>hjb4u-archtype</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+    <licenses>
+        <license>
+            <name>GNU General Public License (GPL) Version 2</name>
+            <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+        </license>
+    </licenses>
+    <name>HyperJAXB 4 Users - Archtype</name>
+
+    <prerequisites>
+        <maven>2.2</maven>
+    </prerequisites>
+
+
+</project>
