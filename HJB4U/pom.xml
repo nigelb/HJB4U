@@ -34,7 +34,7 @@
     <name>HyperJAXB 4 Users</name>
     <properties>
         <hjb4uresources>src/main/resources</hjb4uresources>
-        <hjb4u_conf>${hjb4uresources}/${artifactId}/conf</hjb4u_conf>
+        <hjb4u_conf>${hjb4uresources}/${project.artifactId}/conf</hjb4u_conf>
         <schemas.resources>target/scheams</schemas.resources>
     </properties>
 
