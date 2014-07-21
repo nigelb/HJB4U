@@ -18,14 +18,10 @@
     <fileSets>
         <fileSet filtered="false">
             <directory>src/main/</directory>
-            <excludes><exclude>**/settings.properties</exclude></excludes>
+            <!--<excludes><exclude>**/settings.properties</exclude></excludes>-->
         </fileSet>
         <fileSet filtered="false">
             <directory>src/main/resources/META-INF/hjb4u/schema</directory>
-        </fileSet>
-        <fileSet filtered="true">
-            <directory>src/main/resources/META-INF/hjb4u/conf</directory>
-            <includes><include>**/settings.properties</include></includes>
         </fileSet>
     </fileSets>
 

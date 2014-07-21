@@ -13,6 +13,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dist.dir>${project.basedir}/target/install</dist.dir>
+        <hjb4u.dir>META-INF/hjb4u</hjb4u.dir>
+        <conf.dir>${hjb4u.dir}/conf</conf.dir>
+        <schema.dir>${hjb4u.dir}/schema</schema.dir>
     </properties>
 
     <dependencies>
@@ -39,8 +42,17 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <mkdir dir="${project.build.outputDirectory}/META-INF/hjb4u"/>
+                                <mkdir dir="${project.build.outputDirectory}/${hjb4u.dir}"/>
                                 <echo message="${project.name}.MyRoundtripTest" output="${project.build.outputDirectory}/META-INF/hjb4u/hjb4u.roundtrip.RoundTripInterface"/>
+
+                                <mkdir dir="${project.build.outputDirectory}/${conf.dir}"/>
+                                <property name="hjb4u.project_name" value="${project.artifactId}"/>
+                                <property name="hjb4u.schema.file" value="${schema.dir}/${project.artifactId}.xsd"/>
+                                <echoproperties destfile="${project.build.outputDirectory}/${conf.dir}/settings.properties">
+                                    <propertyset>
+                                        <propertyref prefix="hjb4u." />
+                                    </propertyset>
+                                </echoproperties>
                             </target>
                         </configuration>
                         <goals>
@@ -64,9 +76,9 @@
                 <configuration>
                     <extension>true</extension>
                     <roundtripTestClassName>${project.artifactId}.MyRoundtripTest</roundtripTestClassName>
-                    <schemaDirectory>${project.basedir}/src/main/resources/META-INF/hjb4u/schema</schemaDirectory>
+                    <schemaDirectory>${project.basedir}/src/main/resources/${schema.dir}</schemaDirectory>
                     <schemaIncludes>
-                        <schemaInclude>${project.name}.xsd</schemaInclude>
+                        <schemaInclude>${project.artifactId}.xsd</schemaInclude>
                     </schemaIncludes>
                 </configuration>
             </plugin>
