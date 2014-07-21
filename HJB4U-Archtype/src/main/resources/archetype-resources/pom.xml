@@ -19,7 +19,7 @@
         <dependency>
             <groupId>hjb4u</groupId>
             <artifactId>hjb4u</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </dependency>
     </dependencies>
     <build>
