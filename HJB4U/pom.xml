@@ -107,54 +107,28 @@
         </dependency>
     </dependencies>
 
-    <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>maven2-repository.dev.java.net</id>-->
-            <!--<url>http://download.java.net/maven/2</url>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>maven-repository.dev.java.net</id>-->
-            <!--<url>http://download.java.net/maven/1</url>-->
-            <!--<layout>legacy</layout>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>maven2-repository.jboss.com</id>-->
-            <!--<url>http://repository.jboss.com/maven2</url>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>codehaus.org</id>-->
-            <!--<url>http://repository.codehaus.org/org/codehaus/mojo/</url>-->
-        <!--</repository>-->
-    <!--</repositories>-->
-
-    <!--<pluginRepositories>-->
-        <!--<pluginRepository>-->
-            <!--<id>maven2-repository.dev.java.net</id>-->
-            <!--<url>http://download.java.net/maven/2</url>-->
-        <!--</pluginRepository>-->
-        <!--<pluginRepository>-->
-            <!--<id>maven-repository.dev.java.net</id>-->
-            <!--<url>http://download.java.net/maven/1</url>-->
-            <!--<layout>legacy</layout>-->
-        <!--</pluginRepository>-->
-
-        <!--<pluginRepository>-->
-            <!--<id>onejar-maven-plugin.googlecode.com</id>-->
-            <!--<url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>-->
-        <!--</pluginRepository>-->
-
-        <!--<pluginRepository>-->
-            <!--<id>Codehaus Snapshots</id>-->
-            <!--<url>http://snapshots.repository.codehaus.org/</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-            <!--</snapshots>-->
-            <!--<releases>-->
-                <!--<enabled>true</enabled>-->
-                <!--&lt;!&ndash; Workaround for MNG-2974, see note below &ndash;&gt;-->
-            <!--</releases>-->
-        <!--</pluginRepository>-->
-    <!--</pluginRepositories>-->
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/config.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>bin_assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
