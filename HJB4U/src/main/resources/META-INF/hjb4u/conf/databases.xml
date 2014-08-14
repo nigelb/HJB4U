@@ -31,4 +31,7 @@
     <database username="username" url="jdbc:mysql://&lt;host&gt;/&lt;database name&gt;" password="password"
               name="Mysql5InnoDB - Bits are converted to Integers" driver="com.mysql.jdbc.Driver"
               dialect="hjb4u.database.NoBitsMySQL5InnoDBDialect"/>
+    <database username="username" url="jdbc:mysql://&lt;host&gt;/&lt;database name&gt;" password="password"
+              name="Mysql5MyIsam - Bits are converted to Integers" driver="com.mysql.jdbc.Driver"
+              dialect="hjb4u.database.NoBitsMySQL5MyIsamDialect"/>
 </Databases>
