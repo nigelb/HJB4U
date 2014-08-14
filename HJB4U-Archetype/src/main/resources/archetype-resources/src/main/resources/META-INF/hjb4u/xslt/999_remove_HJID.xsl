@@ -17,25 +17,22 @@
   ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>hjb4u</groupId>
-    <artifactId>hjb4u-archtype</artifactId>
-    <version>0.0.1</version>
-    <packaging>jar</packaging>
-    <licenses>
-        <license>
-            <name>GNU General Public License (GPL) Version 2</name>
-            <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
-        </license>
-    </licenses>
-    <name>HyperJAXB 4 Users - Archtype</name>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-    <prerequisites>
-        <maven>2.2</maven>
-    </prerequisites>
+        <xsl:output omit-xml-declaration="no" indent="yes"/>
 
+        <xsl:param name="removeElementsNamed" select="'Hjid'"/>
 
-</project>
+        <xsl:template match="node()|@*" name="identity">
+            <xsl:copy>
+                <xsl:apply-templates select="node()|@*"/>
+            </xsl:copy>
+        </xsl:template>
+
+        <xsl:template match="node()|@*">
+            <xsl:if test="not(name() = $removeElementsNamed)">
+                <xsl:call-template name="identity"/>
+            </xsl:if>
+        </xsl:template>
+
+</xsl:stylesheet>

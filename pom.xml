@@ -8,7 +8,7 @@
     <version>0.0.2-SNAPSHOT</version>
     <modules>
         <module>HJB4U</module>
-        <module>HJB4U-Archtype</module>
+        <module>HJB4U-Archetype</module>
     </modules>
     <packaging>pom</packaging>
 

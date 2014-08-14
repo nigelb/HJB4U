@@ -1,0 +1,28 @@
+<!--<archetype xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+           <!--xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype/1.0.0 http://maven.apache.org/xsd/archetype-1.0.0.xsd">-->
+    <!--<id>hjb4u</id>-->
+    <!--<resources>-->
+        <!--<resource>src/main/assembly/config.xml</resource>-->
+        <!--<resource filtered="true">src/main/resources/META-INF/hjb4u/conf/settings.properties</resource>-->
+        <!--<resource filtered="false">src/main/resources/META-INF/hjb4u/conf/resources.xml</resource>-->
+        <!--<resource filtered="false">src/main/resources/META-INF/hjb4u/conf/persistence.properties</resource>-->
+        <!--<resource filtered="false">src/main/resources/META-INF/hjb4u/xslt/999_remove_HJID.xsl</resource>-->
+        <!--<resource filtered="false">src/main/resources/META-INF/hjb4u/schema/.keep</resource>-->
+    <!--</resources>-->
+<!--</archetype>-->
+
+<archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+        name="hjb4u">
+    <fileSets>
+        <fileSet filtered="false">
+            <directory>src/main/</directory>
+            <!--<excludes><exclude>**/settings.properties</exclude></excludes>-->
+        </fileSet>
+        <fileSet filtered="false">
+            <directory>src/main/resources/META-INF/hjb4u/schema</directory>
+        </fileSet>
+    </fileSets>
+
+     </archetype-descriptor>
