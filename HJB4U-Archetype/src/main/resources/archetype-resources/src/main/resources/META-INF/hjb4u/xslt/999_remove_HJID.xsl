@@ -16,21 +16,23 @@
   ~ along with this program; if not, write to the Free Software
   ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
   -->
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
-    <id>dist</id>
-    <includeBaseDirectory>false</includeBaseDirectory>
-    <formats>
-        <format>zip</format>
-    </formats>
-    <fileSets>
-        <fileSet>
-            <outputDirectory>/</outputDirectory>
-            <directory>${basedir}/target/install</directory>
-            <includes>
-                <include>**/**</include>
-            </includes>
-        </fileSet>
-    </fileSets>
-</assembly>
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+        <xsl:output omit-xml-declaration="no" indent="yes"/>
+
+        <xsl:param name="removeElementsNamed" select="'Hjid'"/>
+
+        <xsl:template match="node()|@*" name="identity">
+            <xsl:copy>
+                <xsl:apply-templates select="node()|@*"/>
+            </xsl:copy>
+        </xsl:template>
+
+        <xsl:template match="node()|@*">
+            <xsl:if test="not(name() = $removeElementsNamed)">
+                <xsl:call-template name="identity"/>
+            </xsl:if>
+        </xsl:template>
+
+</xsl:stylesheet>

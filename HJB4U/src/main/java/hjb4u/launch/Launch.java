@@ -19,6 +19,7 @@
 
 package hjb4u.launch;
 
+import hjb4u.config.hjb4u.Constants;
 import hjb4u.config.hjb4u.HJB4UConfiguration;
 import hjb4u.gui.GUI;
 import org.xml.sax.SAXException;
@@ -36,7 +37,7 @@ public class Launch extends AbstractLaunch{
 
         HJB4UConfiguration settings = initializeHAJJ4U(true);
         final GUI g;
-        JFrame w = new JFrame(settings.getSchema());
+        JFrame w = new JFrame(_settings.getProperty(Constants.PROJECT_NAME, settings.getSchema()));
         w.getContentPane().add((g = new GUI(w)).$$$getRootComponent$$$());
         w.setBounds(100, 100, 300, 300);
         w.setLocationRelativeTo(null);

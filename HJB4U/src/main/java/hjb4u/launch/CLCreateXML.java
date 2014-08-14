@@ -21,6 +21,9 @@ package hjb4u.launch;
 import hjb4u.Main;
 import hjb4u.config.hjb4u.HJB4UConfiguration;
 import hjb4u.config.hjb4u.HJB4UConfigurationException;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
@@ -37,8 +40,24 @@ import java.io.IOException;
  * @Author NigelB
  */
 public class CLCreateXML extends AbstractLaunch{
+    public static void usage(String[] args)
+    {
+        System.out.println("Usage: \n" +
+                "   createxml <OBJECT_ID> <XML_FILE> [<LOG_FILE>]\n");
+    }
+
     public static void main(String[] args) throws JAXBException, IOException, SAXException, TransformerException, ClassNotFoundException, HJB4UConfigurationException, ParserConfigurationException {
-        HJB4UConfiguration settings = initializeHAJJ4U(true);
+        if(args.length < 2)
+        {
+            usage(args);
+            System.exit(1);
+        }
+        HJB4UConfiguration settings = initializeHAJJ4U(false);
+        PatternLayout layout = new PatternLayout("[%t:%-6p] at %C.%M(%F:%L) - %m%n");
+        if(args.length == 3) {
+            FileAppender f = new FileAppender(layout, args[2]);
+            Logger.getRootLogger().addAppender(f);
+        }
         settings.setRootID(Long.parseLong(args[0]));
         Main main = new Main();
         main.createXML(new FileOutputStream(new File(args[1])));

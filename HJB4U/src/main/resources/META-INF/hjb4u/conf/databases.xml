@@ -25,7 +25,8 @@
               name="Mysql - Bits are converted to Integers" driver="com.mysql.jdbc.Driver"
               dialect="hjb4u.database.NoBitsMySQLDialect"/>
     <database username="username" url="jdbc:mysql://&lt;host&gt;/&lt;database name&gt;" password="password"
-              name="MysqlMyIsam - Bits are converted to Integers and a MyIsam table type is used" driver="com.mysql.jdbc.Driver"
+              name="MysqlMyIsam - Bits are converted to Integers and a MyIsam table type is used"
+              driver="com.mysql.jdbc.Driver"
               dialect="hjb4u.database.NoBitsMySQLMyIsamDialect"/>
     <database username="username" url="jdbc:mysql://&lt;host&gt;/&lt;database name&gt;" password="password"
               name="Mysql5InnoDB - Bits are converted to Integers" driver="com.mysql.jdbc.Driver"

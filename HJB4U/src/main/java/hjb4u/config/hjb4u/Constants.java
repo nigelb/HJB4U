@@ -34,5 +34,6 @@ public interface Constants {
     public static final String HJB4U_PATH = ".hjb4u";
     public static final String XSLT_DIR_PATH = "xslt";
     public static final String SCHEMA_FILE = "hjb4u.schema.file";
-    public static final String UUID = "uuid";
+    public static final String PROJECT_NAME = "hjb4u.project_name";
+//    public static final String UUID = "uuid";
 }

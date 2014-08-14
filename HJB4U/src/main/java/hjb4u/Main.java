@@ -23,6 +23,8 @@ import hjb4u.config.hjb4u.DBConf;
 import hjb4u.config.hjb4u.HJB4UConfiguration;
 import hjb4u.config.hjb4u.HJB4UConfigurationException;
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import hjb4u.roundtrip.RoundTripInterface;
+import hjb4u.roundtrip.RoundTripProxy;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -72,6 +74,7 @@ public class Main {
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
     private EntityManagerFactory fac;
+    private RoundTripInterface roundTrip = RoundTripProxy.createRoundTrip();
 
     private HJB4UConfiguration settings = SettingsStore.getInstance().getSettings();
     private Logger logger = Logger.getLogger(Main.class.getName());
@@ -79,7 +82,7 @@ public class Main {
     public Main() throws SAXException, IOException, JAXBException {
 
 		//Initialise JAXB.
-        jaxbContext = newInstance(new MyRoundtripTest().getContextPath());
+        jaxbContext = newInstance(roundTrip.getContextPath());
         marshaller = jaxbContext.createMarshaller();
         vmarshaller = jaxbContext.createMarshaller();
         unmarshaller = jaxbContext.createUnmarshaller();
@@ -144,13 +147,13 @@ public class Main {
     public void populateDatabase() throws HJB4UConfigurationException {
         Properties p = getPersistance();
         p.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        fac = Persistence.createEntityManagerFactory(new MyRoundtripTest().getPersistenceUnitName(), p);
+        fac = Persistence.createEntityManagerFactory(roundTrip.getPersistenceUnitName(), p);
         createEM().close();
     }
 
     EntityManager createEM() throws HJB4UConfigurationException {
         Properties p = getPersistance();
-        fac = Persistence.createEntityManagerFactory(new MyRoundtripTest().getPersistenceUnitName(), p);
+        fac = Persistence.createEntityManagerFactory(roundTrip.getPersistenceUnitName(), p);
         return fac.createEntityManager(p);
     }
 

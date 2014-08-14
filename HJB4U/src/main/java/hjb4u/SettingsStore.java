@@ -36,9 +36,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
+import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -135,8 +137,12 @@ public class SettingsStore {
 		ArrayList<ListClass> toRet = new ArrayList<ListClass>();
 		try {
 			Class[] cls = ClassFinder.getEpisodeClasses(this.getClass().getClassLoader().getResource(episode));
+            Annotation ant;
 			for (Class cl : cls) {
-				toRet.add(new ListClass(cl));
+                ant = cl.getAnnotation(XmlRootElement.class);
+                if(ant != null) {
+                    toRet.add(new ListClass(cl));
+                }
 			}
 		} catch (IOException e) {
 			logger.error(e, e);

@@ -46,18 +46,18 @@ public class Util {
     }
 
     public static void copyResource(URL from, File to) {
-        if(from == null){
+        if (from == null) {
             System.out.printf("Resource could not be copied to: %s%n", to);
-            return;}
+            return;
+        }
         System.out.printf("Copring resource: %s to: %s%n", from, to);
         try {
             OutputStream fos = new BufferedOutputStream(new FileOutputStream(to));
             InputStream in = new BufferedInputStream(from.openStream());
             int data = -1;
-            while(true)
-            {
+            while (true) {
                 data = in.read();
-                if(data == -1) break;
+                if (data == -1) break;
                 fos.write(data);
 
             }
@@ -73,8 +73,7 @@ public class Util {
 
     public static ArrayList<URL> findResourceSiblings(URL res) throws IOException, URISyntaxException {
         ArrayList<URL> toRet = new ArrayList<URL>();
-        if(res.getProtocol().equalsIgnoreCase("jar"))
-        {
+        if (res.getProtocol().equalsIgnoreCase("jar")) {
             String file = res.getFile();
             String[] parts = file.split("!");
             String jarFile = parts[0];
@@ -83,13 +82,12 @@ public class Util {
 
             String[] jarComps = jarLoc.split("/");
             int pos = 0;
-            if(jarComps[0].length() == 0)
-            {
+            if (jarComps[0].length() == 0) {
                 pos = 1;
             }
             StringBuilder bu = new StringBuilder();
             String del = "";
-            for (int i = pos; i < (jarComps.length -1 ); i++) {
+            for (int i = pos; i < (jarComps.length - 1); i++) {
                 bu.append(del).append(jarComps[i]);
                 del = "\\/";
             }
@@ -100,22 +98,30 @@ public class Util {
             while (entries.hasMoreElements()) {
                 ZipEntry zipEntry = entries.nextElement();
                 m = p.matcher(zipEntry.getName());
-                if(m.find())
-                {
+                if (m.find()) {
                     toRet.add(makeJARURL(jarFile, zipEntry.getName()));
                 }
 
             }
-        }
-        else if(res.getProtocol().equalsIgnoreCase("file"))
-        {
+        } else if (res.getProtocol().equalsIgnoreCase("file")) {
             for (File file : new File(res.toURI()).getParentFile().listFiles()) {
                 toRet.add(file.toURI().toURL());
             }
         }
         return toRet;
     }
+
     private static URL makeJARURL(String jarFile, String resourceLoc) throws MalformedURLException {
-        return new URL(String.format("jar:%s!/%s", jarFile,resourceLoc));
+        return new URL(String.format("jar:%s!/%s", jarFile, resourceLoc));
+    }
+
+    public static byte[] readStream(InputStream is) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        int val;
+        while ((val = is.read()) != -1) {
+            bos.write(val);
+        }
+        is.close();
+        return bos.toByteArray();
     }
 }
