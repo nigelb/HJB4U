@@ -20,7 +20,7 @@
 
 <Resources>
     <Resource errorOnFail="true">
-        <resourceLocation>hjb4u/xslt/999_remove_HJID.xsl</resourceLocation>
+        <resourceLocation>META-INF/hjb4u/xslt/999_remove_HJID.xsl</resourceLocation>
         <outputLocation>{0}/xslt/999_remove_HJID.xsl</outputLocation>
     </Resource>
 </Resources>
