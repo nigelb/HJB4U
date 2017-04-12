@@ -16,6 +16,7 @@
         <hjb4u.dir>META-INF/hjb4u</hjb4u.dir>
         <conf.dir>${hjb4u.dir}/conf</conf.dir>
         <schema.dir>${hjb4u.dir}/schema</schema.dir>
+        <schema.file>${project.artifactId}.xsd</schema.file>
     </properties>
 
     <dependencies>
@@ -47,7 +48,7 @@
 
                                 <mkdir dir="${project.build.outputDirectory}/${conf.dir}"/>
                                 <property name="hjb4u.project_name" value="${project.artifactId}"/>
-                                <property name="hjb4u.schema.file" value="${schema.dir}/${project.artifactId}.xsd"/>
+                                <property name="hjb4u.schema.file" value="${schema.dir}/${schema.file}"/>
                                 <echoproperties destfile="${project.build.outputDirectory}/${conf.dir}/settings.properties">
                                     <propertyset>
                                         <propertyref prefix="hjb4u." />
@@ -78,7 +79,7 @@
                     <roundtripTestClassName>${project.artifactId}.MyRoundtripTest</roundtripTestClassName>
                     <schemaDirectory>${project.basedir}/src/main/resources/${schema.dir}</schemaDirectory>
                     <schemaIncludes>
-                        <schemaInclude>${project.artifactId}.xsd</schemaInclude>
+                        <schemaInclude>${schema.file}</schemaInclude>
                     </schemaIncludes>
                 </configuration>
             </plugin>
