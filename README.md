@@ -8,5 +8,52 @@ schema was constantly evolving, with monthly updates over the course of a year(s
 I simply didn't have the time to tweak the code every time they decided to update
 the schema, so HJB4U was born.
 
+# Instillation
+
+
+## Java Transaction API
+
+
+Go to this [Oracle](http://www.oracle.com/technetwork/java/javaee/jta/index.html) site and download the 1.0.1b class files.
+
+On the commandline go to the directory where the download went and execute:
+
+     mvn install:install-file -Dfile=jta-1_0_1B-classes.zip -DgroupId=javax.transaction -DartifactId=jta -Dversion=1.0.1B -Dpackaging=jar
+
+## Install the Project
+
+To install the project:
+
+    git clone https://github.com/nigelb/HJB4U.git
+    cd HJB4U
+    mvn install
+
+# Create a new project from the Archetype
+
+On the commandline we will generate the new project:
+
+    mvn archetype:generate -DarchetypeGroupId=hjb4u -DarchetypeArtifactId=hjb4u-archetype -DarchetypeVersion=0.0.2 -DgroupId=hjb4u -DartifactId=hjb4u-test -Dversion=0.0.1-SNAPSHOT
+    
+If it asks you to confirm the details, ensure they are correct and pres Y`enter`. Then it fill generate the following files:
+
+    $ find hjb4u-test/
+    hjb4u-test/
+    hjb4u-test/pom.xml
+    hjb4u-test/src
+    hjb4u-test/src/main
+    hjb4u-test/src/main/assembly
+    hjb4u-test/src/main/assembly/config.xml
+    hjb4u-test/src/main/resources
+    hjb4u-test/src/main/resources/META-INF
+    hjb4u-test/src/main/resources/META-INF/hjb4u
+    hjb4u-test/src/main/resources/META-INF/hjb4u/conf
+    hjb4u-test/src/main/resources/META-INF/hjb4u/conf/persistence.properties
+    hjb4u-test/src/main/resources/META-INF/hjb4u/conf/resources.xml
+    hjb4u-test/src/main/resources/META-INF/hjb4u/schema
+    hjb4u-test/src/main/resources/META-INF/hjb4u/xslt
+    hjb4u-test/src/main/resources/META-INF/hjb4u/xslt/999_remove_HJID.xsl
+    
+Next we will copy our schema into the `hjb4u-test/src/main/resources/META-INF/hjb4u/schema
+` directory.
 
 
