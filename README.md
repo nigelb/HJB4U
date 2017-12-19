@@ -21,7 +21,7 @@ Then on the command line go to the directory where `jta-1_0_1B-classes.zip` down
 
 ## Install the Project
 
-To install the project checkout the source and use run maven install:
+To install the project checkout the source and run maven install:
 
     git clone https://github.com/nigelb/HJB4U.git
     cd HJB4U
