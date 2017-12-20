@@ -15,13 +15,13 @@ To install HJB4U you will need [Apache Maven](https://maven.apache.org).
 One of the dependencies of HJB4U depends on Oracls's JTA library. 
 To install the JTA dependency go to this [Oracle](http://www.oracle.com/technetwork/java/javaee/jta/index.html) site and download the 1.0.1B class files.
 
-Then on the command line go to the directory where `jta-1_0_1B-classes.zip` downloaded to and execute:
+Then on the command line go to the directory where `jta-1_0_1B-classes.zip` was downloaded to and execute:
 
      mvn install:install-file -Dfile=jta-1_0_1B-classes.zip -DgroupId=javax.transaction -DartifactId=jta -Dversion=1.0.1B -Dpackaging=jar
 
-## Install the Project
+## Install the HJB4U Libraries
 
-To install the project checkout the source and run maven install:
+To install the project libraries checkout the source and run maven install:
 
     git clone https://github.com/nigelb/HJB4U.git
     cd HJB4U
