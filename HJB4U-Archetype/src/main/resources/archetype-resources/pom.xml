@@ -63,10 +63,12 @@
                 </executions>
             </plugin>
 
+<!--            https://github.com/highsource/hyperjaxb3/issues/48-->
+<!--            https://github.com/Haylemicheal/hyperjaxb3.git-->
             <plugin>
                 <groupId>org.jvnet.hyperjaxb3</groupId>
                 <artifactId>maven-hyperjaxb3-plugin</artifactId>
-                <version>0.5.4</version>
+                <version>0.6.3-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <goals>
@@ -88,8 +90,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
 

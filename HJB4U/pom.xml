@@ -39,7 +39,7 @@
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <hyperjaxb3.version>0.6.2</hyperjaxb3.version>
+        <hyperjaxb3.version>0.6.1</hyperjaxb3.version>
         <hibernate.version>5.6.2.Final</hibernate.version>
         <hibernate.commons.version>5.1.2.Final</hibernate.commons.version>
     </properties>
@@ -102,9 +102,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.0.7</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
