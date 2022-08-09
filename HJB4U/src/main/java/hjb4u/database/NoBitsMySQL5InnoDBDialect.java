@@ -34,6 +34,6 @@ import java.sql.Types;
 public class NoBitsMySQL5InnoDBDialect extends MySQL5InnoDBDialect {
     public NoBitsMySQL5InnoDBDialect() {
         super();
-        registerColumnType(Types.BIT, Hibernate.INTEGER.getName());
+        registerColumnType(Types.BIT, "integer");
     }
 }
