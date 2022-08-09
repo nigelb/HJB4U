@@ -79,15 +79,15 @@ public class SettingsStore {
 		try {
 			mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			settings = (HJB4UConfiguration) unmar.unmarshal(store);
-		} catch (JAXBException e) {
+		} catch (IllegalArgumentException e) {
 
-			if (e.getLinkedException() instanceof FileNotFoundException) {
+//			if (e.getLinkedException() instanceof FileNotFoundException) {
 				logger.debug("Settings Not Found.");
 				settings = new HJB4UConfiguration();
 				settings.setNamespaces(makeDefaultNamespaces());
-			}else {
-				throw e;
-			}
+//			}else {
+//				throw e;
+//			}
 		}catch(NamespaceException npe)
 		{
 			logger.error("Namespace Mappings have been curropted.");
