@@ -68,7 +68,7 @@
 <!--            https://github.com/Haylemicheal/hyperjaxb3.git-->
             <plugin>
                 <groupId>org.jvnet.hyperjaxb3</groupId>
-                <artifactId>maven-hyperjaxb3-plugin</artifactId>
+                <artifactId>hyperjaxb3-maven-plugin</artifactId>
                 <version>0.6.3-SNAPSHOT</version>
                 <executions>
                     <execution>
