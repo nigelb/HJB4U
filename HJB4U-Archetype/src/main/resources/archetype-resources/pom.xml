@@ -23,12 +23,13 @@
         <dependency>
             <groupId>hjb4u</groupId>
             <artifactId>hjb4u</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>1.6</version>
                 <dependencies>
