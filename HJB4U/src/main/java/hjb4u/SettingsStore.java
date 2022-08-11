@@ -32,10 +32,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -71,6 +68,14 @@ public class SettingsStore {
 		instance = new SettingsStore(conf_dir, new File(conf_dir + File.separator + settings));
 	}
 
+	private void configureDefaultSettings()
+	{
+		logger.debug("Settings Not Found.");
+		settings = new HJB4UConfiguration();
+		settings.setNamespaces(makeDefaultNamespaces());
+	}
+
+
 	private SettingsStore(String conf_dir, File store) throws JAXBException {
 		this.conf_dir = conf_dir;
 		this.store = store;
@@ -79,15 +84,17 @@ public class SettingsStore {
 		try {
 			mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			settings = (HJB4UConfiguration) unmar.unmarshal(store);
-		} catch (IllegalArgumentException e) {
+		}catch(IllegalArgumentException ia)
+		{
+			configureDefaultSettings();
+		}
+		catch (UnmarshalException e) {
 
-//			if (e.getLinkedException() instanceof FileNotFoundException) {
-				logger.debug("Settings Not Found.");
-				settings = new HJB4UConfiguration();
-				settings.setNamespaces(makeDefaultNamespaces());
-//			}else {
-//				throw e;
-//			}
+			if (e.getLinkedException() instanceof FileNotFoundException) {
+				configureDefaultSettings();
+			}else {
+				throw e;
+			}
 		}catch(NamespaceException npe)
 		{
 			logger.error("Namespace Mappings have been curropted.");
