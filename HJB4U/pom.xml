@@ -23,7 +23,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>hjb4u</groupId>
     <artifactId>hjb4u</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
     <licenses>
         <license>
@@ -36,6 +36,12 @@
         <hjb4uresources>src/main/resources</hjb4uresources>
         <hjb4u_conf>${hjb4uresources}/${project.artifactId}/conf</hjb4u_conf>
         <schemas.resources>target/scheams</schemas.resources>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <hyperjaxb3.version>0.6.1</hyperjaxb3.version>
+        <hibernate.version>5.6.2.Final</hibernate.version>
+        <hibernate.commons.version>5.1.2.Final</hibernate.commons.version>
     </properties>
 
     <prerequisites>
@@ -50,15 +56,15 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.1.10</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.sun.xml.bind</groupId>-->
+<!--            <artifactId>jaxb-impl</artifactId>-->
+<!--            <version>2.1.10</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.jvnet.hyperjaxb3</groupId>
             <artifactId>hyperjaxb3-ejb-runtime</artifactId>
-            <version>0.5.3</version>
+            <version>${hyperjaxb3.version}</version>
         </dependency>
 
 
@@ -66,26 +72,26 @@
         <dependency>
             <groupId>org.jvnet.hyperjaxb3</groupId>
             <artifactId>hyperjaxb3-ejb-roundtrip</artifactId>
-            <version>0.5.3</version>
+            <version>${hyperjaxb3.version}</version>
         </dependency>
 
         <!-- Hibernate Dependencies -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.6.ga</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
 
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.3.2.GA</version>
+            <version>${hibernate.version}</version>
             <!--<scope>test</scope>-->
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.1.0.CR1</version>
+            <version>${hibernate.commons.version}</version>
             <!--<scope>test</scope>-->
         </dependency>
         <!-- Database -->
@@ -96,22 +102,28 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.0.7</version>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.18.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.18.0</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2-beta-5</version>
+                <version>3.3.0</version>
                 <configuration>
                     <descriptors>
                         <descriptor>src/main/assembly/config.xml</descriptor>

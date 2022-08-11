@@ -34,6 +34,6 @@ import java.sql.Types;
 public class NoBitsMySQLDialect extends MySQLDialect {
     public NoBitsMySQLDialect() {
         super();
-        registerColumnType(Types.BIT, Hibernate.INTEGER.getName());
+        registerColumnType(Types.BIT, "integer");
     }
 }

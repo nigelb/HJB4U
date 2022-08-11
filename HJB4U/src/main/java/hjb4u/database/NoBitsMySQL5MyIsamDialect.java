@@ -34,7 +34,7 @@ import java.sql.Types;
 public class NoBitsMySQL5MyIsamDialect extends MySQLMyISAMDialect {
 	public NoBitsMySQL5MyIsamDialect() {
 		super();
-		registerColumnType(Types.BIT, Hibernate.INTEGER.getName());
+		registerColumnType(Types.BIT, "integer");
 	}
 
     @Override
